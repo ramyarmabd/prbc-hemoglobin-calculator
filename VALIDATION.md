@@ -2,6 +2,10 @@
 
 Review and checks: October 5, 2026. **Educational estimator—not clinically validated.**
 
+## CancerTime-inspired visual update (1.0.2)
+
+Adapted CancerTime’s warm canvas, Avenir typography, rounded surface cards, pill buttons, and navigation using burgundy and rose accents. Calculation code, source content, input limits, and exclusions were unchanged. All 100 production-code tests passed again. Browser preview checks at desktop and 390 × 844 confirmed the new layout, adult example (1.12 / 8.12), immediate clearing after blanking weight, and withheld results for active bleeding. No physical iPhone/Safari or formal assistive-technology audit was performed.
+
 ## Automated production-code checks
 
 `npm test`: **100 tests passed, 0 failed** on Node.js 26.10.0 locally. The GitHub workflow also runs the suite on Node.js 22.

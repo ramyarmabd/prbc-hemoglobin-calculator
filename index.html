@@ -6,19 +6,23 @@
   <meta name="description" content="Educational PRBC hemoglobin response estimator using transparent mass-balance arithmetic. Browser-only calculations, adjustable product and blood-volume assumptions.">
   <meta name="color-scheme" content="light">
   <title>PRBC Hemoglobin Response Calculator</title>
-  <link rel="stylesheet" href="styles.css?v=1.0.1">
+  <link rel="stylesheet" href="styles.css?v=1.0.2">
   <script type="module" src="app.js"></script>
 </head>
 <body>
 <a class="skip" href="#calculator">Skip to calculator</a>
-<header class="topbar"><a class="brand" href="#"><span class="mark" aria-hidden="true">Hb</span> PRBC response <span class="brand-detail">/ educational tools</span></a><a href="#methodology">Method &amp; sources <span aria-hidden="true">↗</span></a></header>
+<header class="topbar"><a class="brand" href="#"><span class="mark" aria-hidden="true"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M16 4C13 9 7 14 7 20a9 9 0 0 0 18 0c0-6-6-11-9-16Z"/><path d="M11 20a5 5 0 0 0 5 5"/></svg></span><span>PRBC response <span class="brand-detail">Understanding hemoglobin response</span></span></a><nav aria-label="Primary navigation"><a href="#calculator">Calculator</a><a href="#methodology">Methodology</a><a href="#sources-title">Sources</a></nav></header>
 <main>
   <section class="intro" aria-labelledby="page-title">
+    <div class="intro-copy">
     <p class="eyebrow">TRANSFUSION ARITHMETIC, MADE TRANSPARENT</p>
     <h1 id="page-title">Estimate a hemoglobin response.</h1>
     <p class="lead">Explore how PRBC hemoglobin content and circulating blood volume affect a theoretical Hb rise after equilibration.</p>
     <p class="badge">Educational estimator—not clinically validated.</p>
     <p class="intro-note">This tool does not recommend whether to transfuse, a dose, target Hb, or infusion rate. Numerical precision does not imply clinical accuracy.</p>
+    <div class="hero-actions"><a class="primary" href="#calculator">Explore the calculator <span aria-hidden="true">→</span></a><a class="hero-link" href="#methodology">How it works →</a></div>
+    </div>
+    <aside class="hero-card" aria-label="About this estimator"><p class="eyebrow">TRANSPARENT BY DESIGN</p><h2>Your numbers.<br>Your assumptions.</h2><p>Explore a theoretical response using the PRBC amount and blood-volume assumptions you enter.</p><div class="hero-tags"><span>Adults &amp; children</span><span>Newborns</span><span>Browser-only</span></div><p class="hero-privacy">No account. No patient identifiers.<br>Nothing you enter is submitted or stored.</p></aside>
   </section>
   <div class="calculator-layout" id="calculator">
     <form id="calculator-form" novalidate autocomplete="off">
