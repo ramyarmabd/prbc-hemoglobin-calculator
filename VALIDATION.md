@@ -41,8 +41,20 @@ Checked using the available in-app browser at a desktop viewport of 1280 × 900 
 - Zero amount displayed 0.00 rise and unchanged starting Hb.
 - Reset cleared results and restored defaults.
 - Phone layout stacked fields and result panels; visible input controls had 16 px text and 48 px height. Desktop layout used two columns.
+- A software-limit stress case produced a long number that initially widened the phone page. Result wrapping was corrected; at 320 px, the page remained within the viewport even with the stress value. This is a layout test, not a clinically plausible example.
 
-Production deployment verification is recorded after GitHub Pages completes. No clinical validation, physical iPhone test, Safari compatibility test, or formal screen-reader audit has been performed.
+## GitHub and live deployment checks
+
+- Public repository: https://github.com/ramyarmabd/prbc-hemoglobin-calculator
+- GitHub Pages: https://ramyarmabd.github.io/prbc-hemoglobin-calculator/
+- GitHub calculation CI passed on Node.js 22: https://github.com/ramyarmabd/prbc-hemoglobin-calculator/actions/runs/37385439433
+- Initial Pages build/deployment completed successfully: https://github.com/ramyarmabd/prbc-hemoglobin-calculator/actions/runs/37385479192
+- Live browser check: adult 70 kg / starting Hb 7 / 1 Canadian example unit returned rise 1.12 and final 8.12 g/dL.
+- Live browser check: term newborn 3 kg / starting Hb 7 / 10 mL/kg / historical 100 mL–21 g reference / 80 mL/kg blood volume returned rise 2.63 and final 9.63 g/dL, with no RCH approximation displayed.
+- Live invalid edits immediately emptied the old numeric output. Selecting pregnancy withheld results.
+- The committed remote file tree was fetched and compared to the tested local implementation; hashes matched before the final layout/documentation update. Remote commits were published through the authenticated GitHub browser: terminal Git credentials were unavailable and the connector lacked write access to this newly created repository. No additional account permissions were granted.
+
+No clinical validation, physical iPhone test, Safari compatibility test, or formal screen-reader audit has been performed. Original full text for the adult blood-volume formula papers was unavailable; the formula transcription was cross-checked against an accessible primary study table as documented in REFERENCES.md.
 
 ## Reproduce interface checks
 
