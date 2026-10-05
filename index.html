@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Educational PRBC hemoglobin response estimator using transparent mass-balance arithmetic. Browser-only calculations, adjustable product and blood-volume assumptions.">
+  <meta name="color-scheme" content="light">
+  <title>PRBC Hemoglobin Response Calculator</title>
+  <link rel="stylesheet" href="styles.css">
+  <script type="module" src="app.js"></script>
+</head>
+<body>
+<a class="skip" href="#calculator">Skip to calculator</a>
+<header class="topbar"><a class="brand" href="#"><span class="mark" aria-hidden="true">Hb</span> PRBC response <span class="brand-detail">/ educational tools</span></a><a href="#methodology">Method &amp; sources <span aria-hidden="true">↗</span></a></header>
+<main>
+  <section class="intro" aria-labelledby="page-title">
+    <p class="eyebrow">TRANSFUSION ARITHMETIC, MADE TRANSPARENT</p>
+    <h1 id="page-title">Estimate a hemoglobin response.</h1>
+    <p class="lead">Explore how PRBC hemoglobin content and circulating blood volume affect a theoretical Hb rise after equilibration.</p>
+    <p class="badge">Educational estimator—not clinically validated.</p>
+    <p class="intro-note">This tool does not recommend whether to transfuse, a dose, target Hb, or infusion rate. Numerical precision does not imply clinical accuracy.</p>
+  </section>
+  <div class="calculator-layout" id="calculator">
+    <form id="calculator-form" novalidate autocomplete="off">
+      <section class="panel" aria-labelledby="scope-title">
+        <div class="section-title"><span class="step">01</span><h2 id="scope-title">Check the model’s scope</h2></div>
+        <label for="situation">Clinical situation</label>
+        <select id="situation" name="situation" aria-describedby="scope-help" required>
+          <option value="">Select to confirm applicability</option>
+          <option value="none">None of the listed exclusions applies</option>
+          <option value="bleeding">Active bleeding</option>
+          <option value="hemolysis">Hemolysis</option>
+          <option value="fluid">Major fluid shifts / unstable circulating volume</option>
+          <option value="pregnancy">Pregnancy</option>
+          <option value="exchange">Exchange transfusion</option>
+          <option value="other">Other situation outside the assumptions / uncertain</option>
+        </select>
+        <p class="help" id="scope-help">Any listed exclusion withholds all numerical results. If more than one applies, select any applicable exclusion.</p>
+      </section>
+      <section class="panel" aria-labelledby="patient-title">
+        <div class="section-title"><span class="step">02</span><h2 id="patient-title">Patient &amp; PRBC amount</h2></div>
+        <label for="age">Age group</label>
+        <select id="age" name="age"><option value="adult">Adult</option><option value="child">Child / infant beyond the newborn period</option><option value="term">Term newborn</option><option value="preterm">Very preterm newborn</option></select>
+        <div class="field-grid">
+          <div><label for="weight">Weight</label><div class="paired"><input id="weight" name="weight" type="number" step="any" inputmode="decimal" placeholder="e.g. 70" required><select id="weightUnit" name="weightUnit" aria-label="Weight unit"><option value="kg">kg</option><option value="lb">lb</option></select></div></div>
+          <div><label for="startingHb">Starting Hb <span class="unit">g/dL</span></label><input id="startingHb" name="startingHb" type="number" step="any" inputmode="decimal" placeholder="e.g. 7" required></div>
+          <div><label for="amount">PRBC amount already selected</label><input id="amount" name="amount" type="number" step="any" inputmode="decimal" placeholder="Enter amount" required></div>
+          <div><label for="amountUnit">PRBC amount unit</label><select id="amountUnit" name="amountUnit"><option value="units">Blood-bank units</option><option value="ml">mL</option><option value="mlkg">mL/kg</option><option value="usPint">US liquid pints</option><option value="imperialPint">Imperial pints</option></select></div>
+        </div>
+        <p class="callout"><strong>A blood-bank unit is not a literal pint.</strong> Units use the reference-bag volume below. Pints convert a liquid volume: 1 US pint = 473.176473 mL; 1 Imperial pint = 568.26125 mL. Pediatric amounts must use actual mL or mL/kg.</p>
+      </section>
+      <section class="panel" aria-labelledby="assumptions-title">
+        <div class="section-title"><span class="step">03</span><h2 id="assumptions-title">Set the assumptions</h2></div>
+        <label for="product">Reference product example</label>
+        <select id="product"><option value="cbs">Canadian Blood Services example · 287 mL / 55 g Hb</option><option value="lifeblood">Lifeblood example · 258 mL / 49 g Hb</option><option value="custom">Custom reference-bag values</option></select>
+        <p class="help">Product examples, not universal bag specifications. Use matched volume and total Hb mass for the relevant PRBC product. An aliquot uses the parent product’s concentration, not the parent bag’s full Hb mass.</p>
+        <div class="field-grid">
+          <div><label for="bagVolume">Reference-bag volume <span class="unit">mL</span></label><input id="bagVolume" name="bagVolume" type="number" step="any" inputmode="decimal" value="287" required></div>
+          <div><label for="bagHb">Reference-bag total Hb <span class="unit">g</span></label><input id="bagHb" name="bagHb" type="number" step="any" inputmode="decimal" value="55" required></div>
+        </div>
+        <div class="divider"></div>
+        <label for="method">Circulating blood-volume method</label>
+        <select id="method" name="method"><option value="weight">Weight × estimated mL/kg</option><option value="nadler">Adult Nadler</option><option value="lemmens">Adult Lemmens–Bernstein–Brodsky</option><option value="independent">Independently entered blood volume</option></select>
+        <div id="weight-fields"><label for="ebvPerKg">Estimated blood volume per kg <span class="unit">mL/kg</span></label><input id="ebvPerKg" name="ebvPerKg" type="number" step="any" inputmode="decimal" value="70"><p class="help" id="ebv-help">Adult default: 70 mL/kg. Fixed mL/kg may misestimate blood volume, particularly with obesity or atypical body composition.</p></div>
+        <div id="height-fields" hidden><label for="height">Adult height</label><div class="paired"><input id="height" name="height" type="number" step="any" inputmode="decimal" placeholder="Enter height"><select id="heightUnit" name="heightUnit" aria-label="Height unit"><option value="cm">cm</option><option value="in">inches</option></select></div></div>
+        <div id="nadler-fields" hidden><label for="nadlerSet">Historical Nadler coefficient set</label><select id="nadlerSet" name="nadlerSet"><option value="male">Male coefficients (1962)</option><option value="female">Female coefficients (1962)</option></select><p id="nadler-equation" class="help"></p><p class="help">These are historical adult population coefficient sets; they may not represent an individual’s physiology. If neither is appropriate, use an independently entered volume.</p></div>
+        <div id="lemmens-fields" hidden><div class="field-grid"><div><label for="lemmensIndex">Indexed-volume coefficient <span class="unit">mL/kg</span></label><input id="lemmensIndex" name="lemmensIndex" type="number" step="any" inputmode="decimal" value="70"></div><div><label for="referenceBmi">Reference BMI <span class="unit">kg/m²</span></label><input id="referenceBmi" name="referenceBmi" type="number" step="any" inputmode="decimal" value="22"></div></div><p class="help">BV = weight × coefficient ÷ √(BMI / reference BMI), with BMI = kg / height(m)². The published equation uses 70 and 22; other values are a user-modified assumption, not the published method. Adult estimation only.</p></div>
+        <div id="independent-fields" hidden><label for="bloodVolume">Independently entered circulating blood volume <span class="unit">mL</span></label><input id="bloodVolume" name="bloodVolume" type="number" step="any" inputmode="decimal" placeholder="Enter volume"><p class="help">Use the circulating volume assumed to remain unchanged after equilibration. This tool does not measure blood volume.</p></div>
+        <details class="input-limits"><summary>Software input limits</summary><p>These broad limits guard arithmetic; they are not clinical thresholds or validated applicability ranges. Weight: 0.1–500 kg; starting Hb: 0–30 g/dL; amount: 0–100,000 in its selected unit and converted volume ≤100,000 mL; bag volume: 1–2,000 mL; bag Hb: 0.01–400 g; indexed volume: 1–300 mL/kg; adult height: 50–250 cm; circulating volume: 1–100,000 mL; Lemmens reference BMI: 1–100 kg/m². Inputs within these bounds can still be clinically inappropriate.</p></details>
+        <div class="actions"><button type="submit" class="primary">Calculate theoretical response <span aria-hidden="true">→</span></button><button type="reset" class="secondary">Reset</button></div>
+      </section>
+    </form>
+    <aside class="result-column" aria-label="Calculation results">
+      <section class="result-panel" aria-labelledby="result-title">
+        <p class="eyebrow">MASS-BALANCE ESTIMATE</p><h2 id="result-title">Theoretical response</h2>
+        <div id="result-status" role="status" aria-live="polite" aria-atomic="true">Enter values and confirm the model applies, then calculate.</div>
+        <div id="result-values" hidden>
+          <div class="metric"><span>Estimated Hb rise</span><div><output id="rise"></output> <span class="metric-unit">g/dL</span></div></div>
+          <div class="metric final"><span>Estimated final Hb</span><div><output id="finalHb"></output> <span class="metric-unit">g/dL</span></div></div>
+          <p class="result-note">Starting Hb + theoretical rise. Display rounded to two decimals; uncertainty is not quantified.</p>
+          <dl class="breakdown"><div><dt>Weight used</dt><dd id="weight-used"></dd></div><div><dt>Transfused PRBC volume</dt><dd id="volume-used"></dd></div><div><dt>Delivered hemoglobin</dt><dd id="mass-used"></dd></div><div><dt>Circulating blood volume</dt><dd id="blood-used"></dd></div></dl>
+          <p class="help" id="method-note"></p>
+        </div>
+      </section>
+      <section class="small-panel" id="rch-panel" hidden aria-labelledby="rch-title"><p class="eyebrow">SEPARATE APPROXIMATION</p><h2 id="rch-title">RCH pediatric approximation</h2><p id="rch-result"></p><p class="help">For children under 20 kg beyond the newborn period, algebraically inverted from RCH’s volume formula: rise (g/dL) = transfused mL ÷ (5 × weight kg). This uses different assumptions from the mass-balance estimate and is not a correction to it.</p></section>
+      <section class="small-panel assumptions-note"><span class="outline-icon" aria-hidden="true">≈</span><h2>Read as arithmetic, not a measured outcome.</h2><p>Assumes retention of transfused red cells and unchanged circulating blood volume after equilibration. Immediate volume expansion, fluid redistribution, sampling time, red-cell survival, and individual variability are not predicted.</p></section>
+    </aside>
+  </div>
+  <section class="method-section" id="methodology" aria-labelledby="method-title"><p class="eyebrow">BEHIND THE ESTIMATE</p><h2 id="method-title">A transparent mass-balance model</h2><div class="method-grid"><div><h3>The equations</h3><ol class="equations"><li>Blood volume (mL) = weight (kg) × estimated mL/kg, or the selected alternative.</li><li>Delivered Hb (g) = PRBC volume (mL) × bag Hb (g) ÷ bag volume (mL).</li><li>Hb rise (g/dL) = delivered Hb (g) ÷ [blood volume (mL) ÷ 100].</li><li>Final Hb (g/dL) = starting Hb + calculated rise.</li></ol><p>For multiple bags, this arithmetic assumes the same reference concentration for all transfused volume. It does not establish accuracy for multiple-unit transfusions.</p></div><div><h3>What the adult research establishes</h3><p>The <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC6764268/">2019 donor–component–recipient study</a> examined adult single-unit transfusion episodes. Its statistical regression is different from this mass-balance model; it does not validate pediatric or multiple-unit predictions.</p><p>The study observed a relationship between starting Hb and the increment. This mass model does not capture that relationship: starting Hb affects only the final sum. No research regression, invented coefficients, intercept, correction factors, or patient-specific uncertainty interval are implemented. Adding regression effects to this model could double-count overlapping effects.</p></div></div>
+  </section>
+  <section class="sources-section" aria-labelledby="sources-title"><div class="sources-heading"><div><p class="eyebrow">EVIDENCE &amp; LIMITATIONS</p><h2 id="sources-title">Sources you can inspect</h2></div><p>Reviewed <time datetime="2026-10-05">October 5, 2026</time></p></div><div class="source-grid">
+    <a class="source-card" href="https://profedu.blood.ca/en/transfusion/clinical-guide/blood-components"><span>01 / PRODUCT EXAMPLE</span><h3>Canadian Blood Services ↗</h3><p>Clinical Guide: typical reference unit of 287 mL containing 55 g Hb. Product characteristics vary.</p></a>
+    <a class="source-card" href="https://www.lifeblood.com.au/health-professionals/products/blood-components/red-cells"><span>02 / PRODUCT EXAMPLE</span><h3>Australian Red Cross Lifeblood ↗</h3><p>258 mL and 49 g Hb are mean product values. Page updated March 2026, reporting 2025 data.</p></a>
+    <a class="source-card" href="https://www.blood.gov.au/module-6-neonatal-and-paediatrics-patient-blood-management-guidelines"><span>03 / ARCHIVED GUIDANCE</span><h3>National Blood Authority ↗</h3><p>Module 6 (2016), Appendix G: age-based blood volumes and neonatal examples. Now archived; may not reflect current evidence.</p></a>
+    <a class="source-card" href="https://www.rch.org.au/clinicalguide/guideline_index/Blood_product_prescription/"><span>04 / PEDIATRIC APPROXIMATION</span><h3>Royal Children’s Hospital Melbourne ↗</h3><p>Blood product prescription: weight-based volume formula for children under 20 kg. Displayed separately and within its stated increment scope.</p></a>
+  </div><p class="additional-sources">Blood-volume equations: <a href="https://pubmed.ncbi.nlm.nih.gov/21936146/">Nadler et al. (1962)</a>; <a href="https://pubmed.ncbi.nlm.nih.gov/16756741/">Lemmens et al. (2006)</a>. Equations cross-checked against <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC5534181/">a primary metabolic study’s Table 1</a>. <a href="https://www.blood.gov.au/sites/default/files/documents/2024-06/Module%206%20Neonatal%20and%20Paediatrics.pdf#page=217">NBA Appendix G, PDF pages 217–218</a>.</p>
+    <details><summary>Validation status &amp; practical limitations</summary><p>Software tests compare the production calculation module with independent arithmetic, conversions, adult blood-volume methods, RCH’s 10 kg/100 mL example, and NBA neonatal table values under the table’s own product assumptions. Agreement with arithmetic or published examples is not clinical validation.</p><p>Age defaults are adjustable assumptions: adult 70, older infant/child 70, term newborn 80, very preterm newborn 100 mL/kg. NBA Appendix G describes approximately 70 for older infants/children, 80–85 for term infants, and 100–120 for extremely preterm infants. These categories do not represent every infant, gestational age, or clinical state.</p><p>Actual PRBC volume and Hb concentration, recipient blood volume, red-cell retention, and sampling time may differ from the entered assumptions. This estimator has no prospective or retrospective clinical validation and no quantified patient-specific uncertainty. Clinical decisions require an appropriately qualified clinician and local policies.</p></details>
+  </section>
+</main>
+<footer><p>All calculations stay in this browser. No patient identifiers, analytics, input submission, or persistent patient-data storage.</p><a href="https://github.com/ramyarmabd/prbc-hemoglobin-calculator">Source code &amp; validation ↗</a></footer>
+<noscript><p class="noscript">JavaScript is required for browser-local calculation. No results can be generated while it is disabled.</p></noscript>
+</body>
+</html>

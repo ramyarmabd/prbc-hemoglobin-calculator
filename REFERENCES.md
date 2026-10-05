@@ -1,0 +1,25 @@
+# Source references
+
+Reviewed October 5, 2026. This is an educational arithmetic implementation; links do not imply endorsement or clinical validation.
+
+| Source | Verified content and implementation use |
+| --- | --- |
+| [Roubinian et al., Effect of donor, component, and recipient characteristics on hemoglobin increments following red blood cell transfusion (2019)](https://pmc.ncbi.nlm.nih.gov/articles/PMC6764268/) | Adult single-unit episodes; GEE regression; association of starting Hb with increment; multiple-unit episodes excluded. Read study methods, results, regression description/table, and limitations. Used to explain variability and the scope of evidence, not to calibrate or validate this calculator. |
+| [Canadian Blood Services, Clinical Guide: Blood components](https://profedu.blood.ca/en/transfusion/clinical-guide/blood-components) | Typical reference unit 287 mL and 55 g Hb. Used as an editable product example. |
+| [Australian Red Cross Lifeblood, Red cells](https://www.lifeblood.com.au/health-professionals/products/blood-components/red-cells) | Updated March 2026; 2025 process-control data. Leukocyte-depleted red cells mean 258 mL and 49 g Hb; distributions and specifications show variation. Pediatric splits retain parent product concentration. |
+| [National Blood Authority, Module 6 Neonatal and Paediatrics status page](https://www.blood.gov.au/module-6-neonatal-and-paediatrics-patient-blood-management-guidelines) | Module 6 (2016) is now archived; NBA states it may not reflect currently available evidence and is considering updates. Website labels this status. |
+| [NBA Module 6 PDF, Appendix G (printed pp. 205–206; PDF pp. 217–218)](https://www.blood.gov.au/sites/default/files/documents/2024-06/Module%206%20Neonatal%20and%20Paediatrics.pdf#page=217) | Hb-content/blood-volume calculation, age-related indexed volumes, neonatal table G.2, and separate simplified pediatric volume formula. Used for blood-volume assumptions and historical arithmetic checks, not recommendations. |
+| [Royal Children’s Hospital Melbourne, Blood product prescription](https://www.rch.org.au/clinicalguide/guideline_index/Blood_product_prescription/) | For children below 20 kg, volume formula based on weight and Hb difference; published 10 kg, 100 mL example increases 60 to 80 g/L. Its stated increment scope is used to limit display of the separate inverted approximation. |
+| [Nadler, Hidalgo, Bloch (1962), Prediction of blood volume in normal human adults](https://pubmed.ncbi.nlm.nih.gov/21936146/) | Original adult blood-volume reference. Coefficients and units cross-checked in the primary study below; original full-text access was unavailable through the research tool. |
+| [Lemmens, Bernstein, Brodsky (2006), Estimating blood volume in obese and morbidly obese patients](https://pubmed.ncbi.nlm.nih.gov/16756741/) | Original adult indexed-volume reference. Abstract read; full formula cross-checked against the primary study below because original publisher full text was unavailable. Published defaults remain 70 mL/kg and BMI reference 22. |
+| [A novel approach to predict 24-h energy expenditure based on hematologic volumes (2017), Table 1](https://pmc.ncbi.nlm.nih.gov/articles/PMC5534181/) | Primary research study implementing both adult blood-volume methods; table specifies Nadler coefficients, height in metres, and Lemmens 70/√(BMI/22). Table accessible through the indexed primary-source excerpt; direct article access encountered a site challenge. This use verifies equation transcription, not clinical validity for Hb response. |
+
+## Published neonatal arithmetic checks
+
+NBA Table G.2 uses very preterm blood volume 100 mL/kg and term blood volume 80 mL/kg. Reproducing its table requires the historical pediatric product assumptions adjacent to it: Hct 0.63 and its Hb-from-Hct approximation yield donor Hb 210 g/L (0.21 g/mL). The tests therefore use an explicit 100 mL/21 g reference instead of either modern supplier example. No Hct conversion is added to the calculator UI.
+
+For starting Hb 7 g/dL, table values after 10, 15, 20 mL/kg are 9.1, 10.2, 11.2 g/dL for very preterm and 9.6, 10.9, 12.3 g/dL for term newborns, rounded to the published precision. The same increments apply to the other starting values in that theoretical table. These are published approximation checks, not observations validating the software in patients.
+
+## Evidence boundaries
+
+Supplier means are not guaranteed contents for an individual bag. Age-indexed volumes are assumptions. Adult blood-volume formulae estimate population reference volumes and may differ materially from actual circulating volume. Archived neonatal guidance is identified rather than represented as a newly updated clinical guideline. No transfusion thresholds, targets, doses, or infusion rates are recommended by this website.
