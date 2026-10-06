@@ -1,10 +1,30 @@
 import { calculate, DEFAULT_EBV, NADLER } from './calculator.js';
+import { withSimpleDefaults } from './modes.js';
 
 const form = document.getElementById('calculator-form');
 const get = id => document.getElementById(id);
 const status = get('result-status');
 const numericOutputs = ['rise', 'finalHb', 'weight-used', 'volume-used', 'mass-used', 'blood-used', 'method-note', 'rch-result'];
 const format = (value, digits = 2) => value.toLocaleString('en-US', { minimumFractionDigits: digits, maximumFractionDigits: digits });
+let mode = 'simple';
+
+function setMode(next) {
+  mode = next;
+  const simple = mode === 'simple';
+  get('advanced-settings').hidden = simple;
+  get('simple-mode').setAttribute('aria-pressed', String(simple));
+  get('advanced-mode').setAttribute('aria-pressed', String(!simple));
+  if (simple) {
+    const defaults = withSimpleDefaults({ age: get('age').value });
+    for (const id of ['bagVolume', 'bagHb', 'method', 'ebvPerKg', 'lemmensIndex', 'referenceBmi']) get(id).value = defaults[id];
+    get('product').value = 'cbs';
+    get('ebv-help').textContent = ageHelp[get('age').value];
+  }
+  get('simple-defaults').hidden = !simple;
+  get('simple-defaults').textContent = `Defaults: Canadian product example (287 mL / 55 g Hb); blood volume ${DEFAULT_EBV[get('age').value]} mL/kg. Advanced lets you change these assumptions.`;
+  clearResults(simple ? 'Simple mode uses default assumptions. Enter values and confirm applicability.' : 'Advanced mode: review the product and blood-volume assumptions, then calculate.');
+  syncFields();
+}
 
 function clearResults(message = 'Inputs changed. Calculate again to update the estimate.') {
   get('result-values').hidden = true;
@@ -12,6 +32,13 @@ function clearResults(message = 'Inputs changed. Calculate again to update the e
   numericOutputs.forEach(id => { get(id).textContent = ''; });
   status.textContent = message;
   status.classList.remove('error');
+}
+function revealResult() {
+  if (window.matchMedia('(max-width: 850px)').matches) {
+    status.tabIndex = -1;
+    status.focus({ preventScroll: true });
+    get('result-title').scrollIntoView({ block: 'start', behavior: 'instant' });
+  }
 }
 function syncFields() {
   const adult = get('age').value === 'adult';
@@ -55,6 +82,7 @@ form.addEventListener('change', event => {
     get('bagVolume').value = pair[0]; get('bagHb').value = pair[1];
   }
   syncFields();
+  get('simple-defaults').textContent = `Defaults: Canadian product example (287 mL / 55 g Hb); blood volume ${DEFAULT_EBV[get('age').value]} mL/kg. Advanced lets you change these assumptions.`;
   if (get('situation').value && get('situation').value !== 'none') {
     status.textContent = calculate({ situation: get('situation').value }).message;
     status.classList.add('error');
@@ -63,11 +91,13 @@ form.addEventListener('change', event => {
 form.addEventListener('submit', event => {
   event.preventDefault();
   clearResults();
-  const input = Object.fromEntries(new FormData(form));
+  const entered = Object.fromEntries(new FormData(form));
+  const input = mode === 'simple' ? withSimpleDefaults(entered) : entered;
   const result = calculate(input);
   if (result.status !== 'ok') {
     status.textContent = result.message;
     status.classList.add('error');
+    revealResult();
     return;
   }
   get('rise').textContent = format(result.rise);
@@ -83,10 +113,13 @@ form.addEventListener('submit', event => {
   }
   get('result-values').hidden = false;
   status.textContent = `Calculation complete. Estimated Hb rise ${format(result.rise)} g/dL; estimated final Hb ${format(result.finalHb)} g/dL. Educational estimator, not clinically validated.`;
+  revealResult();
 });
 form.addEventListener('reset', () => {
   clearResults('Enter values and confirm the model applies, then calculate.');
   // Native reset runs after this event.
-  setTimeout(() => { syncFields(); get('ebv-help').textContent = ageHelp.adult; }, 0);
+  setTimeout(() => { syncFields(); get('amountUnit').value = 'units'; setMode('simple'); }, 0);
 });
-syncFields();
+get('simple-mode').addEventListener('click', () => setMode('simple'));
+get('advanced-mode').addEventListener('click', () => setMode('advanced'));
+setMode('simple');

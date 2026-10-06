@@ -2,6 +2,14 @@
 
 Review and checks: October 5, 2026. **Educational estimator—not clinically validated.**
 
+## Calculator-first simple/advanced update (1.1.0)
+
+All **113 tests passed** (100 calculation checks plus 13 tests of the exact production simple-defaults module). Simple defaults preserve exclusion and validation checks, override stale advanced assumptions, and use age-specific blood volumes. The mass-balance calculation module is unchanged.
+
+Browser checks at desktop 1280 × 900 and phone 390 × 844 verified: Simple starts with advanced settings hidden; methodology and sources start collapsed; inputs use 18 px text; adult Simple returns 1.12 / 8.12; Advanced Lifeblood returns 1.00 rise; returning to Simple resets product assumptions, preserves patient inputs, and clears results; advanced Nadler returns 4,997.16 mL; child Simple returns 2.74 rise with separate RCH 2.00 rise; term Simple returns 2.40 rise with no RCH result; all six exclusions withhold numbers; blank inputs immediately clear outputs; Reset restores Simple and adult unit defaults. On phone, submission brings the result or error into view. Disclosure sections can be expanded by the user.
+
+These are browser viewport checks, not physical iPhone/Safari or formal screen-reader tests. No clinical validation is implied.
+
 ## CancerTime-inspired visual update (1.0.2)
 
 Adapted CancerTime’s warm canvas, Avenir typography, rounded surface cards, pill buttons, and navigation using burgundy and rose accents. Calculation code, source content, input limits, and exclusions were unchanged. All 100 production-code tests passed again. Browser preview checks at desktop and 390 × 844 confirmed the new layout, adult example (1.12 / 8.12), immediate clearing after blanking weight, and withheld results for active bleeding. No physical iPhone/Safari or formal assistive-technology audit was performed.

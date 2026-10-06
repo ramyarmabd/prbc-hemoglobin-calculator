@@ -1,5 +1,7 @@
 # PRBC hemoglobin response calculator
 
+The homepage starts in **Simple** mode: age, weight, starting Hb, and PRBC amount/unit, plus a mandatory applicability check. Hidden assumptions use explicit defaults: Canadian product example 287 mL / 55 g; adult/child 70, term 80, very preterm 100 mL/kg blood volume. **Advanced** reveals editable assumptions and alternate blood-volume methods. Returning to Simple restores defaults and clears results while preserving patient inputs and exclusions. Reset returns to Simple. Methodology, sources, and limitations are collapsed below the calculator. No inputs are persisted.
+
 **Educational estimator—not clinically validated.**
 
 Browser-only, mobile-friendly arithmetic for a theoretical hemoglobin rise and final hemoglobin after an entered PRBC amount. It does not recommend whether to transfuse, a dose, target Hb, or infusion rate.
