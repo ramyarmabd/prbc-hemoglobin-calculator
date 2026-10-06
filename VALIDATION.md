@@ -1,5 +1,11 @@
 # Software validation record
 
+## Adult platelet weight-field correction (1.2.1) — October 6, 2026
+
+**161 tests passed.** Adult platelet results now explicitly represent the published 70 kg reference adult, with no patient weight input, validation, or scaling. An extraneous adult weight never changes the reference. Child weight is still required and validated. Source increment values, exclusion guards, and PRBC calculations are unchanged.
+
+Browser preview checks confirmed: adult weight is hidden and disabled; adult baseline 10 plus one dose calculates CBS final reference 25–35 and Lifeblood 30–50 without weight; result headings explicitly identify the 70 kg adult reference; child mode shows/enables weight and rejects it when blank; 10 kg child, 50 mL, baseline 10 gives approximate final 60; Reset hides/disables weight again. Phone layout at 390 × 844 was inspected. No physical-device or formal screen-reader audit was performed.
+
 ## Platelet reference addition (1.2.0) — October 6, 2026
 
 **160 automated tests passed:** 113 existing PRBC/mode tests plus 47 tests of the exact production `platelet-calculator.js`. Adult references are independently checked at +15–25 and +20–40 ×10⁹/L with separate baseline sums; no adult weight, aliquot, or multiple-dose extrapolation. Child checks cover actual mL conversion, the constant approximately +50 reference across 5–10 mL/kg, conservative weight scope, and withholding outside it. Tests also cover zero amount, malformed/nonfinite/negative/software-limit inputs, unsupported newborns/units, converted-volume limits, all eight exclusion choices, and unconfirmed applicability. PRBC calculation logic is unchanged.

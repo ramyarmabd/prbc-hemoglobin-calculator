@@ -2,6 +2,8 @@
 
 ## Platelet reference tool (1.2.0)
 
+Version 1.2.1 removes the adult weight entry: 70 kg labels the source’s reference adult, not a required patient weight. Adult output remains an unadjusted published reference, not a prediction for a person of any weight. Child mode still requires weight for its scope checks and mL/kg conversion.
+
 `platelets.html` adds a separate, browser-only published-response reference. It is **not** the PRBC mass-balance equation and is not clinically validated. For one adult therapeutic dose in a 70 kg adult, it keeps the CBS +15–25 ×10⁹/L one-hour range separate from Lifeblood’s +20–40 range. It adds these reference increments to an entered baseline, without selecting a midpoint or creating a patient-specific confidence interval. No adult weight, aliquot, or multiple-dose scaling is implemented.
 
 For stable children beyond the newborn period, conservatively limited here to <15 kg, Lifeblood’s approximately +50 ×10⁹/L reference is displayed only for already-selected amounts of 5–10 mL/kg (or actual mL converted to mL/kg). No linear dose interpolation/extrapolation is made. No newborn count prediction is implemented. This tool never recommends a dose, indication, target count, or rate. Applicability must be confirmed; consumption, immune destruction, sequestration, bleeding, major fluid shifts, pregnancy, exchange, and uncertainty withhold results. References and review date are included on the page. Clinical decisions require expert assessment and local policies.

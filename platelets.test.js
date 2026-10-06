@@ -1,13 +1,13 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { calculatePlatelets, PLATELET_EXCLUSIONS } from './platelet-calculator.js';
-const adult={age:'adult',situation:'none',weight:70,starting:10,amount:1,unit:'adultDose'};
+const adult={age:'adult',situation:'none',starting:10,amount:1,unit:'adultDose'};
 const run=changes=>calculatePlatelets({...adult,...changes});
 test('adult published references remain distinct and add baseline independently',()=>{
   const r=run({}); assert.equal(r.status,'ok');
   assert.deepEqual(r.references,[{source:'cbs',low:15,high:25,finalLow:25,finalHigh:35},{source:'lifeblood',low:20,high:40,finalLow:30,finalHigh:50}]);
 });
-for (const weight of [50,69.9,70.1,100]) test(`no invented adult weight scaling: ${weight}`,()=>{assert.equal(run({weight}).status,'unsupported');});
+for (const weight of [50,69.9,70.1,100]) test(`extra adult weight never scales the published reference: ${weight}`,()=>{assert.deepEqual(run({weight}).references,run({}).references);});
 for (const amount of [0.5,2,3]) test(`no adult aliquot/multiple-dose extrapolation: ${amount}`,()=>{assert.equal(run({amount}).status,'unsupported');});
 test('starting count changes sums only',()=>{const r=run({starting:0});assert.equal(r.references[0].low,15);assert.equal(r.references[0].finalHigh,25);});
 for (const mlkg of [5,7.5,10]) test(`stable child at ${mlkg} mL/kg uses the same approximate reference`,()=>{
@@ -25,7 +25,7 @@ for (const situation of ['', 'unknown',...PLATELET_EXCLUSIONS]) test(`applicabil
   const r=run({situation});assert.notEqual(r.status,'ok');assert.equal(r.references,undefined);
 });
 for (const [field,values] of [['weight',['',-1,NaN,Infinity,0,501]],['starting',['',-1,NaN,Infinity,2001]],['amount',['',-1,NaN,Infinity,100001]]]) {
-  for (const value of values) test(`invalid ${field}: ${String(value)}`,()=>{assert.equal(run({[field]:value}).status,'invalid');});
+  for (const value of values) test(`invalid ${field}: ${String(value)}`,()=>{assert.equal(run(field==='weight'?{age:'child',unit:'ml',amount:50,[field]:value}:{[field]:value}).status,'invalid');});
 }
 test('zero amount adds zero, without forecasting a stable measured count',()=>{const r=run({amount:0,weight:80});assert.equal(r.status,'ok');assert.deepEqual(r.references,[{source:'zero',low:0,high:0,finalLow:10,finalHigh:10}]);});
 test('wrong units and unknown age cannot produce results',()=>{
@@ -33,3 +33,6 @@ test('wrong units and unknown age cannot produce results',()=>{
   assert.equal(run({age:'child',unit:'adultDose'}).status,'invalid');assert.equal(run({age:'unknown'}).status,'invalid');
 });
 test('converted child volume limit is a software safeguard',()=>{assert.equal(run({age:'child',weight:14,amount:100000,unit:'mlkg'}).status,'invalid');});
+test('adult reference does not require weight; child reference does',()=>{
+  assert.equal(run({}).status,'ok');assert.equal(run({age:'child',amount:50,unit:'ml'}).status,'invalid');
+});
