@@ -23,3 +23,10 @@ For starting Hb 7 g/dL, table values after 10, 15, 20 mL/kg are 9.1, 10.2, 11.2 
 ## Evidence boundaries
 
 Supplier means are not guaranteed contents for an individual bag. Age-indexed volumes are assumptions. Adult blood-volume formulae estimate population reference volumes and may differ materially from actual circulating volume. Archived neonatal guidance is identified rather than represented as a newly updated clinical guideline. No transfusion thresholds, targets, doses, or infusion rates are recommended by this website.
+# Platelet addition — reviewed October 6, 2026
+
+- [CBS Blood components](https://professionaleducation.blood.ca/en/transfusion/clinical-guide/blood-components), April 22, 2025: one adult dose in a 70 kg adult, expected one-hour rise 15–25 ×10⁹/L; sepsis, alloimmunization, fever, ITP, and DIC can reduce response.
+- [Lifeblood Use of platelets](https://www.lifeblood.com.au/health-professionals/clinical-practice/use-of-blood-components/use-of-platelets), August 2026: one apheresis/pooled adult unit in a 70 kg adult, rise 20–40 ×10⁹/L; stable child at 5–10 mL/kg, approximately +50 ×10⁹/L. The page does not assign a sampling time to the adult range. These source references are not combined or scaled into an individualized prediction.
+- [CBS Platelet transfusion and refractoriness](https://professionaleducation.blood.ca/en/transfusion/clinical-guide/platelet-transfusion-alloimmunization-and-management-platelet): platelet response varies with underlying causes, comorbidities, patient size, product and compatibility; CCI is an observed-response measure, not a forecast.
+- [RCH Platelet transfusion](https://www.rch.org.au/bloodtrans/about_blood_products/Platelet_transfusion/): distinction between weight-based dosing below 15 kg and adult-unit dosing above 15 kg, and causes of poor response. The interface’s <15 kg scope is conservative, not a biologically validated cutoff.
+- [RCH Neonatal transfusions](https://www.rch.org.au/bloodtrans/special_transfusions/Neonatal_transfusions/): neonatal volume/product guidance does not provide a validated count-increment equation. No neonatal numerical estimate was added.

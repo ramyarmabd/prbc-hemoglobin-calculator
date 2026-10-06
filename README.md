@@ -1,5 +1,11 @@
 # PRBC hemoglobin response calculator
 
+## Platelet reference tool (1.2.0)
+
+`platelets.html` adds a separate, browser-only published-response reference. It is **not** the PRBC mass-balance equation and is not clinically validated. For one adult therapeutic dose in a 70 kg adult, it keeps the CBS +15–25 ×10⁹/L one-hour range separate from Lifeblood’s +20–40 range. It adds these reference increments to an entered baseline, without selecting a midpoint or creating a patient-specific confidence interval. No adult weight, aliquot, or multiple-dose scaling is implemented.
+
+For stable children beyond the newborn period, conservatively limited here to <15 kg, Lifeblood’s approximately +50 ×10⁹/L reference is displayed only for already-selected amounts of 5–10 mL/kg (or actual mL converted to mL/kg). No linear dose interpolation/extrapolation is made. No newborn count prediction is implemented. This tool never recommends a dose, indication, target count, or rate. Applicability must be confirmed; consumption, immune destruction, sequestration, bleeding, major fluid shifts, pregnancy, exchange, and uncertainty withhold results. References and review date are included on the page. Clinical decisions require expert assessment and local policies.
+
 The homepage starts in **Simple** mode: age, weight, starting Hb, and PRBC amount/unit, plus a mandatory applicability check. Hidden assumptions use explicit defaults: Canadian product example 287 mL / 55 g; adult/child 70, term 80, very preterm 100 mL/kg blood volume. **Advanced** reveals editable assumptions and alternate blood-volume methods. Returning to Simple restores defaults and clears results while preserving patient inputs and exclusions. Reset returns to Simple. Methodology, sources, and limitations are collapsed below the calculator. No inputs are persisted.
 
 **Educational estimator—not clinically validated.**

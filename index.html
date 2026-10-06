@@ -6,7 +6,7 @@
   <meta name="description" content="Educational PRBC hemoglobin response estimator using transparent mass-balance arithmetic. Browser-only calculations, adjustable product and blood-volume assumptions.">
   <meta name="color-scheme" content="light">
   <title>PRBC Hemoglobin Response Calculator</title>
-  <link rel="stylesheet" href="styles.css?v=1.1.0">
+  <link rel="stylesheet" href="styles.css?v=1.2.0">
   <script type="module" src="app.js?v=1.1.0"></script>
 </head>
 <body>
@@ -17,6 +17,7 @@
     <h1 id="page-title">Hemoglobin response calculator</h1>
     <p class="badge">Educational estimator—not clinically validated.</p>
   </section>
+  <nav class="component-switch" aria-label="Blood component"><a href="./" aria-current="page">Red cells / Hb</a><a href="platelets.html">Platelets</a></nav>
   <div class="calculator-layout" id="calculator">
     <form id="calculator-form" novalidate autocomplete="off">
       <div class="mode-switch" role="group" aria-label="Calculator mode"><button type="button" id="simple-mode" aria-pressed="true" aria-controls="advanced-settings">Simple</button><button type="button" id="advanced-mode" aria-pressed="false" aria-controls="advanced-settings">Advanced</button></div>

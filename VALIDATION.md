@@ -1,5 +1,13 @@
 # Software validation record
 
+## Platelet reference addition (1.2.0) — October 6, 2026
+
+**160 automated tests passed:** 113 existing PRBC/mode tests plus 47 tests of the exact production `platelet-calculator.js`. Adult references are independently checked at +15–25 and +20–40 ×10⁹/L with separate baseline sums; no adult weight, aliquot, or multiple-dose extrapolation. Child checks cover actual mL conversion, the constant approximately +50 reference across 5–10 mL/kg, conservative weight scope, and withholding outside it. Tests also cover zero amount, malformed/nonfinite/negative/software-limit inputs, unsupported newborns/units, converted-volume limits, all eight exclusion choices, and unconfirmed applicability. PRBC calculation logic is unchanged.
+
+Local browser checks at 1280 × 900 and 390 × 844: adult baseline 10 displays CBS 25–35 and Lifeblood 30–50 final reference counts separately; blank weight immediately empties old cards; adult 80 kg is withheld; stable child 10 kg, 50 mL, baseline 20 displays approximate rise 50 and final 70; all exclusion selections hide numeric output; newborn submission withholds results; Reset clears values; source disclosure shows October 6 review date; navigation returns to PRBC. Phone controls use 18 px text and page has no horizontal overflow.
+
+Reference arithmetic is not clinical validation or a patient-specific uncertainty interval. No physical iPhone/Safari or formal screen-reader audit was performed.
+
 Review and checks: October 5, 2026. **Educational estimator—not clinically validated.**
 
 ## Calculator-first simple/advanced update (1.1.0)
